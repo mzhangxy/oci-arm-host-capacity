@@ -34,7 +34,18 @@ jobs:
           OCI_SHAPE: "VM.Standard.A1.Flex"
           OCI_OCPUS: 4
           OCI_MEMORY_IN_GBS: 24
+          # Rate limit handling: wait 10 minutes (600s) if we hit "Too Many Requests"
+          TOO_MANY_REQUESTS_TIME_WAIT: 600
+          # Cache availability domains to reduce API calls
+          CACHE_AVAILABILITY_DOMAINS: 1
+          # Try all availability domains (leave empty to auto-discover)
+          OCI_AVAILABILITY_DOMAIN: ""
         run: |
+          echo "=== OCI ARM Capacity Checker ==="
+          echo "Region: $OCI_REGION"
+          echo "Timestamp: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          echo "================================"
+          
           # Write the private key to a file as expected by the script
           echo "${{ secrets.OCI_PRIVATE_KEY_CONTENT }}" > oci_api_key.pem
           chmod 600 oci_api_key.pem
