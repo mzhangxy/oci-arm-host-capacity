@@ -13,6 +13,7 @@ use Hitrov\FileCache;
 use Hitrov\OciApi;
 use Hitrov\OciConfig;
 use Hitrov\TooManyRequestsWaiter;
+use Hitrov\Exception\TooManyRequestsWaiterException;
 
 $envFilename = empty($argv[1]) ? '.env' : $argv[1];
 $dotenv = Dotenv::createUnsafeImmutable(__DIR__, $envFilename);
@@ -112,6 +113,12 @@ foreach ($availabilityDomains as $availabilityDomainEntity) {
 
         // current config is broken
         return;
+    } catch(TooManyRequestsWaiterException $e) {
+        // Wait and retry is handled by logic, but here we just catch to prevent crash
+        // and sleep to respect the rate limit
+        echo "Too Many Requests: ". $e->getMessage() . "\n";
+        sleep(60); // Wait a minute before retrying or moving on
+        continue;
     }
 
     // success
