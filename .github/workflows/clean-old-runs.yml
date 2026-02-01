@@ -22,7 +22,6 @@ jobs:
           repository: ${{ github.repository }}     # 当前仓库
           retain_days: 2                           # 保留最近 2 天的 runs
           keep_minimum_runs: 5                     # 至少保留 5 条最近的（防止全部删光）
-          delete_only_completed: true              # 只删已完成的（推荐）
           # 可选：如果你只想清理特定 workflow 的 runs
           # workflows: oci-capacity-checker.yml
 
