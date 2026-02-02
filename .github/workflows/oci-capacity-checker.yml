@@ -2,13 +2,14 @@ name: OCI ARM Capacity Checker
 
 on:
   schedule:
-    - cron: '3-59/8 * * * *' # Run every 10 minutes (Free on Public Repo)
+    - cron: '3,13,23,33,43,53 * * * *' # Run every 10 minutes (Free on Public Repo)
   workflow_dispatch: # Allow manual trigger
 
 jobs:
   check-capacity:
     runs-on: ubuntu-latest
     steps:
+      - run: echo "外部 cron 触发成功！"
       - name: Checkout code
         uses: actions/checkout@v4
 
