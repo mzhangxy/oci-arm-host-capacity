@@ -1,9 +1,9 @@
 name: Clean old workflow runs
 
 on:
-  schedule:
+  #schedule:
     # 每天凌晨 3:00 UTC 运行一次（你可以改成其他时间，避免高峰期）
-    - cron: '0 3 * * *'
+    #- cron: '0 3 * * *'
   
   workflow_dispatch:   # 允许手动触发（在 Actions 页面点 Run workflow）
   
